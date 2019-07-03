@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/email"
+                    android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -54,7 +54,7 @@
                 app:passwordToggleEnabled="true">
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -68,6 +68,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
+                android:onClick="onLogin"
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"

@@ -2,7 +2,6 @@ package com.sample.discussionforum.login;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 
@@ -11,8 +10,6 @@ import com.sample.discussionforum.common.data.StatusAwareResponse;
 import com.sample.discussionforum.login.data.User;
 
 import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 
 public class LoginViewModel extends AndroidViewModel {
     private LoginRepository mRepository;
@@ -26,11 +23,15 @@ public class LoginViewModel extends AndroidViewModel {
         mLiveData = new MutableLiveData<>();
     }
 
-    public MutableLiveData<StatusAwareResponse> getLiveData() {
+    MutableLiveData<StatusAwareResponse> getLiveData() {
         return mLiveData;
     }
 
-    public void registerUser(final String displayName, final String email, final String pwd) {
+
+    /**
+     * This is new user registration method.
+     */
+    void registerUser(final String displayName, final String email, final String pwd) {
         new Executor() {
             @Override
             public void execute(@NonNull Runnable runnable) {
@@ -42,10 +43,17 @@ public class LoginViewModel extends AndroidViewModel {
                 StatusAwareResponse loadingResponse = new StatusAwareResponse();
                 loadingResponse.setStatus(Status.loading);
                 mLiveData.postValue(loadingResponse);
-                User user = new User(displayName,email, pwd);
+                User user = new User(displayName, email, pwd);
                 mRepository.registerUser(mApplication, user, mLiveData);
             }
         });
+    }
+
+    /**
+     * This is login method.
+     */
+    void login(String email, String pwd) {
+        mRepository.login(mApplication, email, pwd, mLiveData);
     }
 
 }

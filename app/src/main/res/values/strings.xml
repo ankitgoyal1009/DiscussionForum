@@ -17,6 +17,10 @@
     <string name="register">Register</string>
     <string name="registration_success">Registration SuccessFul</string>
     <string name="error_user_not_created">Unable to create user</string>
+    <string name="error_authentication_failed">Either email or password is wrong</string>
+    <string name="error_user_not_found">User not found</string>
+    <string name="error_user_already_exists">User already exists</string>
     <string name="msg_user_create">Please wait while creating user</string>
     <string name="error_required">Required</string>
+    <string name="msg_success">Login success</string>
 </resources>
