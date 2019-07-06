@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import com.sample.discussionforum.common.Status;
 import com.sample.discussionforum.common.data.StatusAwareResponse;
@@ -54,6 +55,10 @@ public class LoginViewModel extends AndroidViewModel {
      */
     void login(String email, String pwd) {
         mRepository.login(mApplication, email, pwd, mLiveData);
+    }
+
+    public boolean isUserLoggedIn() {
+        return !TextUtils.isEmpty(mRepository.getSession(mApplication));
     }
 
 }

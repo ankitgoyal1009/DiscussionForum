@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.sample.discussionforum.R;
 import com.sample.discussionforum.common.data.Error;
 import com.sample.discussionforum.common.data.StatusAwareResponse;
+import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private LoginViewModel mViewModel;
@@ -48,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(LoginActivity.this, statusAwareResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                DiscussionsListActivity.startActivity(LoginActivity.this);
+                LoginActivity.this.finish();
             }
         });
     }
