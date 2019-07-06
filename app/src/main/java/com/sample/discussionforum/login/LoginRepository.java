@@ -154,7 +154,7 @@ public class LoginRepository {
      * This method returns current session token if available else null
      */
     @Nullable
-    private String getSession(Context context) {
+    String getSession(Context context) {
         SharedPreferences preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
         return preferences.getString(PREF_SESSION, null);
     }

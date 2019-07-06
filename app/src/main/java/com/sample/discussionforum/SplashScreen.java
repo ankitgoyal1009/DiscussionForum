@@ -1,11 +1,14 @@
 package com.sample.discussionforum;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
 import com.sample.discussionforum.login.LoginActivity;
+import com.sample.discussionforum.login.LoginViewModel;
 
 public class SplashScreen extends AppCompatActivity {
     @Override
@@ -16,11 +19,18 @@ public class SplashScreen extends AppCompatActivity {
         // else check if DB has dummy discussions, if no then create and go to discussions list screen
         // if discussions are already loaded then go directly to discussions list screen
 
+        final LoginViewModel model = ViewModelProviders.of(this).get(LoginViewModel.class);
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                LoginActivity.startActivity(SplashScreen.this);
+                if (!model.isUserLoggedIn()) {
+                    LoginActivity.startActivity(SplashScreen.this);
+                } else {
+                    DiscussionsListActivity.startActivity(SplashScreen.this);
+                }
                 SplashScreen.this.finish();
+
             }
         }, 2000);
     }
