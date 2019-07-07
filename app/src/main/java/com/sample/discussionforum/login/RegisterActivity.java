@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isValidEmail(String email){
+    private boolean isValidEmail(String email) {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email.trim()).matches();
     }
 

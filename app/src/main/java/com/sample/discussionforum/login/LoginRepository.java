@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.sample.discussionforum.data.SharedPrefUtil.PREF_CURRENT_LOGGEDIN_USER;
+
 public class LoginRepository {
     private static final String DB_NAME = "discussions_pref";
     private static final String PREF_USERS = "users";
@@ -133,7 +135,7 @@ public class LoginRepository {
         }
 
         //success
-        createSession(context);
+        createSession(context, user);
         StatusAwareResponse response = new StatusAwareResponse();
         response.setStatus(Status.success);
         response.setMsg(context.getString(R.string.msg_success));
@@ -143,10 +145,11 @@ public class LoginRepository {
     /**
      * This method generates a session
      */
-    private void createSession(Context context) {
+    private void createSession(Context context, User user) {
         SharedPreferences preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREF_SESSION, UUID.randomUUID().toString());
+        editor.putString(PREF_CURRENT_LOGGEDIN_USER, Gson.getInstance().toJson(user));
         editor.apply();
     }
 
@@ -166,6 +169,7 @@ public class LoginRepository {
         SharedPreferences preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove(PREF_SESSION);
+        editor.remove(PREF_CURRENT_LOGGEDIN_USER);
         editor.apply();
     }
 }

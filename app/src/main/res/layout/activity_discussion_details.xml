@@ -30,14 +30,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_marginBottom="@dimen/padding_8dp"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:text="Comments"
-        android:textSize="10sp"/>
+        android:text="@string/comments"
+        android:textSize="@dimen/text_size_10sp"/>
 
-    <ListView
-        android:id="@+id/lv_comments"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_comments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 </LinearLayout>
