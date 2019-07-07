@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".discussions.ui.DiscussionsListActivity"/>
+        <activity android:name=".discussions.ui.DiscussionDetailsActivity"/>
     </application>
 
 </manifest>

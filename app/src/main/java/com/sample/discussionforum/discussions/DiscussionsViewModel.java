@@ -30,4 +30,8 @@ public class DiscussionsViewModel extends AndroidViewModel {
     public List<Discussion> getPublishedDiscussions() {
         return new ArrayList<>(mRepository.getPublishedDiscussions(mApplication).values());
     }
+
+    public Discussion getDiscussion(String discussionId) {
+        return mRepository.getDiscussion(mApplication, discussionId);
+    }
 }

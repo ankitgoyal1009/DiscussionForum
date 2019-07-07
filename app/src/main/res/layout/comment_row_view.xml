@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    app:elevation="@dimen/padding_8dp"
+    card_view:cardCornerRadius="1dp"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/padding_16dp">
+
+        <RelativeLayout
+            android:id="@+id/meta_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_16dp">
+
+            <ImageView
+                android:id="@+id/iv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/activity_horizontal_margin"
+                android:minWidth="@dimen/activity_horizontal_margin"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_man"/>
+
+            <TextView
+                android:id="@+id/tv_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_toEndOf="@id/iv_user"
+                android:textSize="@dimen/font_size_14sp"
+                android:textStyle="bold"
+                tools:text="User"/>
+
+            <TextView
+                android:id="@+id/tv_comment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_user"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:layout_toEndOf="@id/iv_user"
+                android:textSize="@dimen/font_size_12sp"
+                tools:text="Time"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/meta_container"
+            android:layout_marginStart="@dimen/padding_8dp"
+            android:textSize="@dimen/font_size_18sp"
+            tools:text="Comment"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_comment"
+            android:orientation="horizontal">
+
+            <TextView
+
+                android:id="@+id/tv_comments_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:textSize="@dimen/font_size_10sp"
+                tools:text="Like Count"/>
+
+            <TextView
+                android:id="@+id/tv_like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/meta_container"
+                android:layout_marginStart="@dimen/padding_8dp"
+                android:textSize="@dimen/font_size_10sp"
+                tools:text="Comments Count"/>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/action_divider"
+            layout="@layout/horizontal_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tv_comment"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/action_divider"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_like"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_thumb_up_black_24dp"/>
+
+            <ImageView
+                android:id="@+id/iv_reply"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_reply_black_24dp"/>
+
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_share_black_24dp"/>
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
