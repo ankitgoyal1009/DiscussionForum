@@ -2,12 +2,20 @@ package com.sample.discussionforum.comments.data;
 
 import com.sample.discussionforum.login.data.User;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Comment {
+    @NonNull
+    @PrimaryKey
     private String id;
     private User user;
     private long commentDate;
     private String content;
     private String parentCommentId;
+    private String discussionId;
     private int likeCount;
     private int replyCount;
     private int upvoteCount;
@@ -50,6 +58,14 @@ public class Comment {
 
     public void setParentCommentId(String parentCommentId) {
         this.parentCommentId = parentCommentId;
+    }
+
+    public String getDiscussionId() {
+        return discussionId;
+    }
+
+    public void setDiscussionId(String discussionId) {
+        this.discussionId = discussionId;
     }
 
     public int getLikeCount() {

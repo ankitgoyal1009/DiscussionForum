@@ -1,4 +1,7 @@
 apply plugin: 'com.android.application'
+ext {
+    rooms_version = "2.1.0"
+}
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -26,5 +29,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha02'
     implementation 'com.google.code.gson:gson:2.8.5'
+
+    // Room components
+    implementation "androidx.room:room-runtime:$rooms_version"
+    annotationProcessor "androidx.room:room-compiler:$rooms_version"
+    androidTestImplementation "androidx.room:room-testing:$rooms_version"
 
 }

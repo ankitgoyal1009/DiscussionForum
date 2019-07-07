@@ -39,8 +39,7 @@ public class CommentsViewModel extends AndroidViewModel {
 
     public void createComment(String content) {
         StatusAwareResponse<Comment> response = new StatusAwareResponse<>();
-        if (
-                mRepository.createComment(mApplication, content, null)) {
+        if (mRepository.createComment(mApplication, content, null)) {
             response.setStatus(Status.success);
 
         } else {
