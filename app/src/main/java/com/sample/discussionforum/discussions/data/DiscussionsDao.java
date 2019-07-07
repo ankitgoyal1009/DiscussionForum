@@ -1,7 +1,5 @@
 package com.sample.discussionforum.discussions.data;
 
-import com.sample.discussionforum.login.data.User;
-
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -21,6 +19,12 @@ public interface DiscussionsDao {
     @Query("SELECT * from Discussion ")
     LiveData<List<Discussion>> getAllDiscussion();
 
+    @Query("SELECT * from Discussion where date<=:date")
+    LiveData<List<Discussion>> getAllPublishedDiscussion(Long date);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Discussion discussion);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insertAll(List<Discussion> discussion);
 }

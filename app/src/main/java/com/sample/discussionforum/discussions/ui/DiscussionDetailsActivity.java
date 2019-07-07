@@ -49,15 +49,24 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
             return;
         }
         DiscussionsViewModel viewModel = ViewModelProviders.of(this).get(DiscussionsViewModel.class);
-        Discussion discussion = viewModel.getDiscussion(discussionId);
+        viewModel.getDiscussion(discussionId).observe(this, new Observer<Discussion>() {
+            @Override
+            public void onChanged(Discussion discussion) {
+                if(discussion == null) {
+                    Toast.makeText(DiscussionDetailsActivity.this, R.string.error_general, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                TextView tvDiscussionTitle = findViewById(R.id.tv_discussion_title);
+                tvDiscussionTitle.setText(discussion.getTitle());
+
+                TextView tvDiscussionDetail = findViewById(R.id.tv_discussion);
+                tvDiscussionDetail.setText(discussion.getDescription());
+
+            }
+        });
 
         CommentsViewModel commentsViewModel = ViewModelProviders.of(this).get(CommentsViewModel.class);
 
-        TextView tvDiscussionTitle = findViewById(R.id.tv_discussion_title);
-        tvDiscussionTitle.setText(discussion.getTitle());
-
-        TextView tvDiscussionDetail = findViewById(R.id.tv_discussion);
-        tvDiscussionDetail.setText(discussion.getDescription());
 
         //dummy comments
 //        commentsViewModel.createComment("This is dummy comment");

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.discussions.data.Discussion;
+import com.sample.discussionforum.discussions.data.DiscussionsDao;
 import com.sample.discussionforum.login.data.User;
 import com.sample.discussionforum.login.data.UserConvertor;
 import com.sample.discussionforum.login.data.UserDao;
@@ -37,5 +38,6 @@ public abstract class LocalDB extends RoomDatabase {
         }
     }
     public abstract UserDao getUserDao();
+    public abstract DiscussionsDao getDiscussionsDao();
 
 }

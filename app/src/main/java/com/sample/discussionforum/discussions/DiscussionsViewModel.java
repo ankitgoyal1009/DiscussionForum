@@ -2,36 +2,38 @@ package com.sample.discussionforum.discussions;
 
 import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.annotation.NonNull;
 
 import com.sample.discussionforum.common.data.StatusAwareResponse;
 import com.sample.discussionforum.discussions.data.Discussion;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DiscussionsViewModel extends AndroidViewModel {
-    private MutableLiveData<StatusAwareResponse<Discussion>> mLiveData;
     private DiscussionRepository mRepository;
     private Application mApplication;
 
     public DiscussionsViewModel(@NonNull Application application) {
         super(application);
-        mLiveData = new MutableLiveData<>();
-        mRepository = DiscussionRepository.getInstance();
+        mRepository = DiscussionRepository.getInstance(application);
         mApplication = application;
     }
 
-    public void initDiscussions() {
+    public void initDummyDiscussions() {
         mRepository.initDummyDiscussions(mApplication);
     }
 
-    public List<Discussion> getPublishedDiscussions() {
-        return new ArrayList<>(mRepository.getPublishedDiscussions(mApplication).values());
+    public LiveData<List<Discussion>> getPublishedDiscussions() {
+        return mRepository.getPublishedDiscussions();
     }
 
-    public Discussion getDiscussion(String discussionId) {
-        return mRepository.getDiscussion(mApplication, discussionId);
+    public LiveData<Discussion> getDiscussion(String discussionId) {
+        return mRepository.getDiscussion(discussionId);
+    }
+
+    public LiveData<List<Discussion>> getAllDiscussions() {
+        return mRepository.getAllDiscussions();
     }
 }

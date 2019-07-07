@@ -19,9 +19,8 @@ public class DiscussionAdapter extends BaseAdapter {
     private AppCompatActivity mActivity;
     private List<Discussion> mDiscussions;
 
-    public DiscussionAdapter(AppCompatActivity activity, List<Discussion> discussions) {
+    public DiscussionAdapter(AppCompatActivity activity) {
         mActivity = activity;
-        mDiscussions = discussions;
     }
 
     public void updateDiscussions(List<Discussion> discussions) {
