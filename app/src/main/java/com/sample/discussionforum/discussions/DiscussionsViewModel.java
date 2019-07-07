@@ -1,9 +1,9 @@
 package com.sample.discussionforum.discussions;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.MutableLiveData;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+import androidx.annotation.NonNull;
 
 import com.sample.discussionforum.common.data.StatusAwareResponse;
 import com.sample.discussionforum.discussions.data.Discussion;

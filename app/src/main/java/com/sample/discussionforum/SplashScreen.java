@@ -1,10 +1,10 @@
 package com.sample.discussionforum;
 
-import android.arch.lifecycle.ViewModelProviders;
+import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
 import com.sample.discussionforum.login.LoginActivity;
