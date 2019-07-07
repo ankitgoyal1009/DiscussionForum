@@ -44,4 +44,8 @@ public class CommentsViewModel extends AndroidViewModel {
     public void upvoteComment(Comment commentId) {
         mRepository.updateComment(commentId);
     }
+
+    public void increaseReplyCount(Comment commentId) {
+        mRepository.increaseReplyCount(commentId);
+    }
 }

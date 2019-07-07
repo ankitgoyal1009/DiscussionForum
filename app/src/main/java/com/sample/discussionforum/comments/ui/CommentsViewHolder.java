@@ -13,10 +13,10 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
     public TextView tvUserName;
     public TextView tvCommentTime;
     public TextView tvComment;
-    public TextView tvLikeCount;
+    public TextView tvUpvoteCount;
     public TextView tvCommentsCount;
     public ImageView ivReply;
-    public ImageView ivLike;
+    public ImageView ivUpvote;
     public ImageView ivShare;
     public ImageView ivUserPhoto;
 
@@ -25,10 +25,10 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
         tvUserName = itemView.findViewById(R.id.tv_user);
         tvCommentTime = itemView.findViewById(R.id.tv_comment_time);
         tvComment = itemView.findViewById(R.id.tv_comment);
-        tvLikeCount = itemView.findViewById(R.id.tv_like_count);
+        tvUpvoteCount = itemView.findViewById(R.id.tv_upvote_count);
         tvCommentsCount = itemView.findViewById(R.id.tv_comments_count);
         ivReply = itemView.findViewById(R.id.iv_reply);
-        ivLike = itemView.findViewById(R.id.iv_like);
+        ivUpvote = itemView.findViewById(R.id.iv_upvote);
         ivShare = itemView.findViewById(R.id.iv_share);
     }
 }

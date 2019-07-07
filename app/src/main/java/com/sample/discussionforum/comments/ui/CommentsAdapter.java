@@ -71,7 +71,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
             }
         });
 
-        viewHolder.ivLike.setOnClickListener(new View.OnClickListener() {
+        viewHolder.ivUpvote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int upvoteCount = comment.getUpvoteCount() + 1;
@@ -80,8 +80,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
             }
         });
 
+        viewHolder.ivReply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddCommentOrReply.startActivity(mActivity, comment.getDiscussionId(), comment.getId());
+            }
+        });
+
         if (comment.getUpvoteCount() > 0) {
-            viewHolder.tvLikeCount.setText(mActivity.getString(R.string.upvote, String.valueOf(comment.getUpvoteCount())));
+            viewHolder.tvUpvoteCount.setText(mActivity.getString(R.string.upvote, String.valueOf(comment.getUpvoteCount())));
         }
 
         if (comment.getReplyCount() > 0) {

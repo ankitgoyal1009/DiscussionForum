@@ -66,6 +66,14 @@ public class CommentsRepository {
         return commentsDao.getAllCommentsForDiscussion(discussionId);
     }
 
+    public LiveData<List<Comment>> getAllRepliesOnComment(String commentId) {
+        return commentsDao.getAllRepliesOnComment(commentId);
+    }
+
+    public LiveData<Integer> getAllRepliesCount(String commentId) {
+        return commentsDao.getAllRepliesCount(commentId);
+    }
+
     public void saveComment(final Comment comment) {
         if (comment != null) {
             new AsyncTask<Object, Object, Object>() {
@@ -79,6 +87,18 @@ public class CommentsRepository {
     }
 
     public void updateComment(final Comment comment) {
+        if (comment != null) {
+            new AsyncTask<Object, Object, Object>() {
+                @Override
+                protected Object doInBackground(Object[] objects) {
+                    commentsDao.update(comment);
+                    return null;
+                }
+            }.execute();
+        }
+    }
+
+    public void increaseReplyCount(final Comment comment) {
         if (comment != null) {
             new AsyncTask<Object, Object, Object>() {
                 @Override

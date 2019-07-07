@@ -18,7 +18,10 @@ public interface CommentsDao {
     LiveData<Comment> getComment(String id);
 
     @Query("SELECT * from Comment where parentCommentId=:parentId")
-    LiveData<List<Comment>> getAllChildComments(String parentId);
+    LiveData<List<Comment>> getAllRepliesOnComment(String parentId);
+
+    @Query("SELECT COUNT(id) from Comment where parentCommentId=:parentId")
+    LiveData<Integer> getAllRepliesCount(String parentId);
 
     @Query("SELECT * from Comment where discussionId=:discussionId")
     LiveData<List<Comment>> getAllCommentsForDiscussion(String discussionId);
