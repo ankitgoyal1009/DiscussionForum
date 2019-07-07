@@ -30,6 +30,7 @@ public class LoginViewModel extends AndroidViewModel {
     public void createSession(User user) {
         mRepository.createSession(mApplication, user);
     }
+
     public boolean isUserLoggedIn() {
         return !TextUtils.isEmpty(mRepository.getSession(mApplication));
     }

@@ -1,7 +1,6 @@
 package com.sample.discussionforum.discussions;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
 
@@ -11,23 +10,16 @@ import com.sample.discussionforum.R;
 import com.sample.discussionforum.common.Gson;
 import com.sample.discussionforum.common.Utils;
 import com.sample.discussionforum.common.data.LocalDB;
-import com.sample.discussionforum.data.SharedPrefUtil;
 import com.sample.discussionforum.discussions.data.Discussion;
 import com.sample.discussionforum.discussions.data.DiscussionsDao;
-import com.sample.discussionforum.login.data.UserDao;
 
 import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-
-import static com.sample.discussionforum.data.SharedPrefUtil.getSharedPref;
 
 public class DiscussionRepository {
     private static DiscussionRepository sInstance;

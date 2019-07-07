@@ -1,7 +1,5 @@
 package com.sample.discussionforum.comments.data;
 
-import com.sample.discussionforum.discussions.data.Discussion;
-
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
@@ -28,6 +26,6 @@ public interface CommentsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Comment comment);
 
-//    @Update(onConflict = OnConflictStrategy.REPLACE)
-//    void update(Comment comment);
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void update(Comment comment);
 }

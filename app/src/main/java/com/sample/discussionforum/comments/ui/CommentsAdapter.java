@@ -1,12 +1,6 @@
 package com.sample.discussionforum.comments.ui;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +15,20 @@ import com.sample.discussionforum.common.data.StatusAwareResponse;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
     private AppCompatActivity mActivity;
     private List<Comment> mCommentList;
     private CommentsViewModel mCommentsViewModel;
 
-    public CommentsAdapter(AppCompatActivity activity, List<Comment> commentList) {
+    public CommentsAdapter(AppCompatActivity activity) {
         mActivity = activity;
-        mCommentList = commentList;
         mCommentsViewModel = ViewModelProviders.of(activity).get(CommentsViewModel.class);
         mCommentsViewModel.getLiveData().observe(activity, new Observer<StatusAwareResponse<Comment>>() {
             @Override
@@ -74,12 +74,14 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
         viewHolder.ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mCommentsViewModel.likeComment(comment.getId());
+                int upvoteCount = comment.getUpvoteCount() + 1;
+                comment.setUpvoteCount(upvoteCount);
+                mCommentsViewModel.upvoteComment(comment);
             }
         });
 
-        if (comment.getLikeCount() > 0) {
-            viewHolder.tvLikeCount.setText(mActivity.getString(R.string.like, String.valueOf(comment.getLikeCount())));
+        if (comment.getUpvoteCount() > 0) {
+            viewHolder.tvLikeCount.setText(mActivity.getString(R.string.upvote, String.valueOf(comment.getUpvoteCount())));
         }
 
         if (comment.getReplyCount() > 0) {

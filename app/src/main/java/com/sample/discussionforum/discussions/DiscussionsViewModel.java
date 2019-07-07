@@ -1,15 +1,14 @@
 package com.sample.discussionforum.discussions;
 
 import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.annotation.NonNull;
 
-import com.sample.discussionforum.common.data.StatusAwareResponse;
 import com.sample.discussionforum.discussions.data.Discussion;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
 
 public class DiscussionsViewModel extends AndroidViewModel {
     private DiscussionRepository mRepository;

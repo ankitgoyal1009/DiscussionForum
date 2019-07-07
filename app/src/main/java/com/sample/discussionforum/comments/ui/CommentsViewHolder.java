@@ -1,12 +1,13 @@
 package com.sample.discussionforum.comments.ui;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sample.discussionforum.R;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsViewHolder extends RecyclerView.ViewHolder {
     public TextView tvUserName;

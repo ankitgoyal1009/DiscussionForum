@@ -1,16 +1,8 @@
 package com.sample.discussionforum.discussions.ui;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,10 +11,18 @@ import com.sample.discussionforum.R;
 import com.sample.discussionforum.comments.CommentsViewModel;
 import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.comments.ui.CommentsAdapter;
-import com.sample.discussionforum.common.Status;
-import com.sample.discussionforum.common.data.StatusAwareResponse;
 import com.sample.discussionforum.discussions.DiscussionsViewModel;
 import com.sample.discussionforum.discussions.data.Discussion;
+
+import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class DiscussionDetailsActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
         viewModel.getDiscussion(discussionId).observe(this, new Observer<Discussion>() {
             @Override
             public void onChanged(Discussion discussion) {
-                if(discussion == null) {
+                if (discussion == null) {
                     Toast.makeText(DiscussionDetailsActivity.this, R.string.error_general, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -65,27 +65,20 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
             }
         });
 
+        final CommentsAdapter adapter = new CommentsAdapter(this);
         CommentsViewModel commentsViewModel = ViewModelProviders.of(this).get(CommentsViewModel.class);
-
-
-        //dummy comments
-//        commentsViewModel.createComment("This is dummy comment");
-        final CommentsAdapter adapter = new CommentsAdapter(this, commentsViewModel.getAllComment());
-        commentsViewModel.getLiveData().observe(this, new Observer<StatusAwareResponse<Comment>>() {
+        commentsViewModel.getAllComment(discussionId).observe(this, new Observer<List<Comment>>() {
             @Override
-            public void onChanged(@Nullable StatusAwareResponse<Comment> response) {
-                if (response == null) {
-                    return;
-                }
-                if (response.getStatus() == Status.success) {
-                    Toast.makeText(DiscussionDetailsActivity.this, "Added comment", Toast.LENGTH_SHORT).show();
+            public void onChanged(List<Comment> comments) {
+                if (comments != null) {
+                    adapter.setOrUpdateCommentList(comments);
                     adapter.notifyDataSetChanged();
-                } else if (response.getStatus() == Status.failed) {
-                    Toast.makeText(DiscussionDetailsActivity.this, "Failed to add comment", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+        //dummy comments
+        commentsViewModel.createComment(discussionId, null, "This is dummy comment");
         RecyclerView commentsRv = findViewById(R.id.rv_comments);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         commentsRv.setLayoutManager(manager);

@@ -1,14 +1,15 @@
 package com.sample.discussionforum;
 
-import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
 import com.sample.discussionforum.login.LoginActivity;
 import com.sample.discussionforum.login.LoginViewModel;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 public class SplashScreen extends AppCompatActivity {
     @Override

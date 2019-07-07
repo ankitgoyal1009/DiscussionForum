@@ -1,8 +1,6 @@
 package com.sample.discussionforum.discussions.ui;
 
 
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -14,6 +12,9 @@ import com.sample.discussionforum.discussions.data.Discussion;
 
 import java.util.Date;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 public class DiscussionAdapter extends BaseAdapter {
     private AppCompatActivity mActivity;
