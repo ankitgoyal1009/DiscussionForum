@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.sample.discussionforum.R;
@@ -31,5 +33,12 @@ public class DiscussionsListActivity extends AppCompatActivity {
         DiscussionAdapter adapter = new DiscussionAdapter(this, discussions);
         ListView listView = findViewById(R.id.lv_discussions);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String id = ((Discussion) adapterView.getAdapter().getItem(i)).getId();
+                DiscussionDetailsActivity.startActivity(DiscussionsListActivity.this, id);
+            }
+        });
     }
 }

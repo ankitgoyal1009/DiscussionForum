@@ -23,4 +23,5 @@
     <string name="msg_user_create">Please wait while creating user</string>
     <string name="error_required">Required</string>
     <string name="msg_success">Login success</string>
+    <string name="error_general">Something went wrong</string>
 </resources>
