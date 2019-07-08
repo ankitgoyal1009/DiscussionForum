@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +15,7 @@ import com.sample.discussionforum.comments.CommentsViewModel;
 import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.comments.ui.AddCommentOrReply;
 import com.sample.discussionforum.comments.ui.CommentsAdapter;
+import com.sample.discussionforum.common.DateUtils;
 import com.sample.discussionforum.discussions.DiscussionsViewModel;
 import com.sample.discussionforum.discussions.data.Discussion;
 
@@ -32,6 +36,11 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
 
     public static final String DISCUSSION_ID = "discussion_id";
     private CommentsViewModel mCommentsViewModel;
+    private EditText etAddComment;
+    private String mDiscussionId;
+    private LinearLayout mNoCommentLL;
+    private RecyclerView mCommentsRv;
+    private TextView mCommentsCountTV;
 
     public static void startActivity(Context context, String discussionId) {
         Intent intent = new Intent(context, DiscussionDetailsActivity.class);
@@ -43,18 +52,18 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_discussion_details);
-        String discussionId = "";
+        mDiscussionId = "";
         if (getIntent() != null) {
             if (getIntent().hasExtra(DISCUSSION_ID)) {
-                discussionId = getIntent().getStringExtra(DISCUSSION_ID);
+                mDiscussionId = getIntent().getStringExtra(DISCUSSION_ID);
             }
         }
-        if (TextUtils.isEmpty(discussionId)) {
+        if (TextUtils.isEmpty(mDiscussionId)) {
             Toast.makeText(DiscussionDetailsActivity.this, R.string.error_general, Toast.LENGTH_SHORT).show();
             return;
         }
         DiscussionsViewModel viewModel = ViewModelProviders.of(this).get(DiscussionsViewModel.class);
-        viewModel.getDiscussion(discussionId).observe(this, new Observer<Discussion>() {
+        viewModel.getDiscussion(mDiscussionId).observe(this, new Observer<Discussion>() {
             @Override
             public void onChanged(Discussion discussion) {
                 if (discussion == null) {
@@ -67,28 +76,50 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
                 TextView tvDiscussionDetail = findViewById(R.id.tv_discussion);
                 tvDiscussionDetail.setText(discussion.getDescription());
 
+                TextView tvDiscussionDate = findViewById(R.id.tv_discussion_date);
+                tvDiscussionDate.setText(DateUtils.dateToString(discussion.getDate()));
+
             }
         });
 
+        mCommentsCountTV = findViewById(R.id.tv_comments_count);
+
         final CommentsAdapter adapter = new CommentsAdapter(this);
         mCommentsViewModel = ViewModelProviders.of(this).get(CommentsViewModel.class);
-        mCommentsViewModel.getAllComment(discussionId).observe(this, new Observer<List<Comment>>() {
+        mCommentsViewModel.getAllComment(mDiscussionId).observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(List<Comment> comments) {
                 if (comments != null) {
                     adapter.setOrUpdateCommentList(comments);
                     adapter.notifyDataSetChanged();
+                    int commentsCount = comments.size();
+                    showAddCommentContainer(commentsCount);
+                    mCommentsCountTV.setText(getString(R.string.comments, String.valueOf(commentsCount)));
                 }
             }
         });
 
         //dummy comments
-//        mCommentsViewModel.createComment(discussionId, null, "This is dummy comment");
-        RecyclerView commentsRv = findViewById(R.id.rv_comments);
+//        mCommentsViewModel.createComment(mDiscussionId, null, "This is dummy comment");
+        mCommentsRv = findViewById(R.id.rv_comments);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
-        commentsRv.setLayoutManager(manager);
-        commentsRv.setItemAnimator(new DefaultItemAnimator());
-        commentsRv.setAdapter(adapter);
+        mCommentsRv.setLayoutManager(manager);
+        mCommentsRv.setItemAnimator(new DefaultItemAnimator());
+        mCommentsRv.setAdapter(adapter);
+
+        mNoCommentLL = findViewById(R.id.ll_no_comment_container);
+        showAddCommentContainer(adapter.getItemCount());
+        etAddComment = findViewById(R.id.et_comment);
+    }
+
+    private void showAddCommentContainer(int itemCount) {
+        if (itemCount > 0) {
+            mCommentsRv.setVisibility(View.VISIBLE);
+            mNoCommentLL.setVisibility(View.GONE);
+        } else {
+            mCommentsRv.setVisibility(View.GONE);
+            mNoCommentLL.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -113,5 +144,15 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void postComment(View view) {
+        String commentString = etAddComment.getText().toString().trim();
+        if (TextUtils.isEmpty(commentString)) {
+            etAddComment.setError(getString(R.string.error_required));
+            return;
+        }
+
+        mCommentsViewModel.createComment(mDiscussionId, null, commentString);
     }
 }
