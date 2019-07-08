@@ -17,13 +17,13 @@ import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.comments.ui.AddCommentOrReply;
 import com.sample.discussionforum.comments.ui.CommentsAdapter;
 import com.sample.discussionforum.common.DateUtils;
+import com.sample.discussionforum.common.ui.BaseActivity;
 import com.sample.discussionforum.discussions.DiscussionsViewModel;
 import com.sample.discussionforum.discussions.data.Discussion;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import static com.sample.discussionforum.comments.ui.AddCommentOrReply.PARENT_COMMENT_ID;
 
-public class DiscussionDetailsActivity extends AppCompatActivity {
+public class DiscussionDetailsActivity extends BaseActivity {
 
     public static final String DISCUSSION_ID = "discussion_id";
     private CommentsViewModel mCommentsViewModel;

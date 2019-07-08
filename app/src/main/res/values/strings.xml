@@ -32,4 +32,5 @@
     <string name="msg_hint_add_comment">Write your thoughts here</string>
     <string name="msg_no_comments">No comments yet</string>
     <string name="add_comment">Add Comment</string>
+    <string name="logout">Logout</string>
 </resources>
