@@ -1,20 +1,21 @@
 package com.sample.discussionforum.login;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.sample.discussionforum.R;
-import com.sample.discussionforum.common.Status;
-import com.sample.discussionforum.common.data.StatusAwareResponse;
+import com.sample.discussionforum.login.data.User;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 public class RegisterActivity extends AppCompatActivity {
     private LoginViewModel mViewModel;
@@ -37,23 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         etPwd = findViewById(R.id.et_password);
 
         mViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-        mViewModel.getLiveData().observe(this, new Observer<StatusAwareResponse>() {
-            @Override
-            public void onChanged(@Nullable StatusAwareResponse statusAwareResponse) {
-                if (statusAwareResponse == null) {
-                    return;
-                }
-
-                if (Status.success == statusAwareResponse.getStatus()) {
-                    Toast.makeText(RegisterActivity.this, statusAwareResponse.getMsg(), Toast.LENGTH_SHORT).show();
-                    RegisterActivity.this.finish();
-                } else if (statusAwareResponse.getStatus() == Status.loading) {
-                    Toast.makeText(RegisterActivity.this, R.string.msg_user_create, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(RegisterActivity.this, statusAwareResponse.getError().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     private boolean isValidEmail(String email) {
@@ -62,9 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void onRegister(View view) {
         boolean valid = true;
-        String displayName = etDisplayName.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String pwd = etPwd.getText().toString().trim();
+        final String displayName = etDisplayName.getText().toString().trim();
+        final String email = etEmail.getText().toString().trim();
+        final String pwd = etPwd.getText().toString().trim();
         if (TextUtils.isEmpty(displayName)) {
             etDisplayName.setError(getString(R.string.error_required));
             valid = false;
@@ -86,7 +70,30 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (valid) {
-            mViewModel.registerUser(displayName, email, pwd);
+            mViewModel.getUser(email).observe(this, new Observer<User>() {
+                @Override
+                public void onChanged(User user) {
+                    if (user != null) {
+                        Toast.makeText(RegisterActivity.this, R.string.error_user_already_exists, Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    registerUser(displayName, email, pwd);
+                }
+            });
         }
+    }
+
+    private void registerUser(String displayName, String email, String pwd) {
+        final LiveData<User> userLiveData = mViewModel.registerUser(displayName, email, pwd);
+        userLiveData.observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if (user != null) {
+                    Toast.makeText(RegisterActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
+                    RegisterActivity.this.finish();
+                    userLiveData.removeObservers(RegisterActivity.this);
+                }
+            }
+        });
     }
 }

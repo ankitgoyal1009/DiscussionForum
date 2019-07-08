@@ -26,5 +26,8 @@
     <string name="error_general">Something went wrong</string>
     <string name="comments">Comments</string>
     <string name="like">Like (%s)</string>
+    <string name="upvote">Upvote (%s)</string>
     <string name="replied">Replied (%s)</string>
+    <string name="submit">Submit</string>
+    <string name="msg_hint_add_comment">Write your thoughts here</string>
 </resources>

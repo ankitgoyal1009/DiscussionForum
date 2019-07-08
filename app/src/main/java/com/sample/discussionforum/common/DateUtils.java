@@ -53,4 +53,17 @@ public class DateUtils {
         return cal.getTimeInMillis();
     }
 
+    /**
+     * Returns the start millis of the given day.
+     */
+    public static long getStartOfDay(long milies) {
+        Calendar cal = Calendar.getInstance();
+        cal.clear();
+        cal.setTimeInMillis(milies);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
 }

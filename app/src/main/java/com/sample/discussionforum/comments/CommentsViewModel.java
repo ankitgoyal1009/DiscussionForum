@@ -1,16 +1,16 @@
 package com.sample.discussionforum.comments;
 
 import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
-import androidx.annotation.NonNull;
 
 import com.sample.discussionforum.comments.data.Comment;
-import com.sample.discussionforum.common.Status;
-import com.sample.discussionforum.common.data.Error;
 import com.sample.discussionforum.common.data.StatusAwareResponse;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class CommentsViewModel extends AndroidViewModel {
     private MutableLiveData<StatusAwareResponse<Comment>> mLiveData;
@@ -20,7 +20,7 @@ public class CommentsViewModel extends AndroidViewModel {
     public CommentsViewModel(@NonNull Application application) {
         super(application);
         mLiveData = new MutableLiveData<>();
-        mRepository = CommentsRepository.getInstance();
+        mRepository = CommentsRepository.getInstance(application);
         mApplication = application;
 
     }
@@ -29,44 +29,23 @@ public class CommentsViewModel extends AndroidViewModel {
         return mLiveData;
     }
 
-    public List<Comment> getAllComment() {
-        return mRepository.getAllComments(mApplication);
+    public LiveData<List<Comment>> getAllComment(String discussionId) {
+        return mRepository.getAllComments(discussionId);
     }
 
-    public Comment getComment(String commentId) {
-        return mRepository.getComment(mApplication, commentId);
+    public LiveData<Comment> getComment(String commentId) {
+        return mRepository.getComment(commentId);
     }
 
-    public void createComment(String content) {
-        StatusAwareResponse<Comment> response = new StatusAwareResponse<>();
-        if (
-                mRepository.createComment(mApplication, content, null)) {
-            response.setStatus(Status.success);
-
-        } else {
-            response.setStatus(Status.failed);
-        }
-        mLiveData.postValue(response);
+    public void createComment(String discussionId, String parentCommentId, String content) {
+        mRepository.createComment(mApplication, discussionId, parentCommentId, content);
     }
 
-    public void likeComment(String commentId) {
-        StatusAwareResponse<Comment> response = new StatusAwareResponse<>();
-        if (mRepository.likeComment(mApplication, commentId)) {
-            response.setStatus(Status.success);
-        } else {
-            Error error = new Error();
-            error.setMessage("Unable to like");
-            response.setStatus(Status.failed);
-
-        }
-        mLiveData.postValue(response);
+    public void upvoteComment(Comment commentId) {
+        mRepository.updateComment(commentId);
     }
 
-    public void upvote(String commentId) {
-        mRepository.upvote(commentId);
-    }
-
-    public void reply(String parentCommentId, String content) {
-        mRepository.createComment(mApplication, content, parentCommentId);
+    public void increaseReplyCount(Comment commentId) {
+        mRepository.increaseReplyCount(commentId);
     }
 }

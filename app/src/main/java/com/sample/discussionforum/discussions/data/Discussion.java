@@ -2,7 +2,14 @@ package com.sample.discussionforum.discussions.data;
 
 import java.util.Date;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Discussion {
+    @NonNull
+    @PrimaryKey
     private String id;
     private String title;
     private String description;
