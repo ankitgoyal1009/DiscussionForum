@@ -24,10 +24,12 @@
     <string name="error_required">Required</string>
     <string name="msg_success">Login success</string>
     <string name="error_general">Something went wrong</string>
-    <string name="comments">Comments</string>
+    <string name="comments">Comments (%s)</string>
     <string name="like">Like (%s)</string>
     <string name="upvote">Upvote (%s)</string>
     <string name="replied">Replied (%s)</string>
     <string name="submit">Submit</string>
     <string name="msg_hint_add_comment">Write your thoughts here</string>
+    <string name="msg_no_comments">No comments yet</string>
+    <string name="add_comment">Add Comment</string>
 </resources>
