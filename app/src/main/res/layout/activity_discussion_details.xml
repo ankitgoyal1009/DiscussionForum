@@ -65,20 +65,38 @@
             android:id="@+id/et_comment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/msg_hint_add_comment"
-            android:minLines="3"/>
+            style="@style/Comment"/>
 
         <Button
+            style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:onClick="postComment"
+            android:padding="@dimen/padding_4dp"
             android:text="@string/add_comment"/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_comments"
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/rl_comments_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"/>
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_submit"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:onClick="newComment"
+            android:text="@string/add_comment"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_comments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btn_submit"
+            android:layout_alignParentTop="true"/>
+    </RelativeLayout>
 </LinearLayout>

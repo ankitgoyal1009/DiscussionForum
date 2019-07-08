@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="Comment">
+        <item name="android:minLines">3</item>
+        <item name="android:hint">@string/msg_hint_add_comment</item>
+    </style>
 </resources>

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
     private EditText etAddComment;
     private String mDiscussionId;
     private LinearLayout mNoCommentLL;
-    private RecyclerView mCommentsRv;
+    private RelativeLayout mCommentsContainerRl;
     private TextView mCommentsCountTV;
 
     public static void startActivity(Context context, String discussionId) {
@@ -83,6 +84,7 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
         });
 
         mCommentsCountTV = findViewById(R.id.tv_comments_count);
+        mCommentsContainerRl = findViewById(R.id.rl_comments_container);
 
         final CommentsAdapter adapter = new CommentsAdapter(this);
         mCommentsViewModel = ViewModelProviders.of(this).get(CommentsViewModel.class);
@@ -101,7 +103,7 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
 
         //dummy comments
 //        mCommentsViewModel.createComment(mDiscussionId, null, "This is dummy comment");
-        mCommentsRv = findViewById(R.id.rv_comments);
+        RecyclerView mCommentsRv = findViewById(R.id.rv_comments);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         mCommentsRv.setLayoutManager(manager);
         mCommentsRv.setItemAnimator(new DefaultItemAnimator());
@@ -114,10 +116,10 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
 
     private void showAddCommentContainer(int itemCount) {
         if (itemCount > 0) {
-            mCommentsRv.setVisibility(View.VISIBLE);
+            mCommentsContainerRl.setVisibility(View.VISIBLE);
             mNoCommentLL.setVisibility(View.GONE);
         } else {
-            mCommentsRv.setVisibility(View.GONE);
+            mCommentsContainerRl.setVisibility(View.GONE);
             mNoCommentLL.setVisibility(View.VISIBLE);
         }
     }
@@ -154,5 +156,9 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
         }
 
         mCommentsViewModel.createComment(mDiscussionId, null, commentString);
+    }
+
+    public void newComment(View view) {
+        AddCommentOrReply.startActivity(this, mDiscussionId, null);
     }
 }
