@@ -58,7 +58,7 @@ public class DiscussionRepository {
                 for (int i = 0; i < list.size(); i++) {
                     Discussion discussion = list.get(i);
                     // Reducing an hour to make sure we get all record immediately after inserting. Ideally we should be taking start of the day
-                    long l = calendar.getTime().getTime() - DateUtils.HOUR_IN_MILLIS;
+                    long l = com.sample.discussionforum.common.DateUtils.getStartOfDay(calendar.getTime().getTime());
                     discussion.setDate(new Date(l));
                     calendar.setTimeInMillis(calendar.getTimeInMillis() + DateUtils.DAY_IN_MILLIS);
                 }

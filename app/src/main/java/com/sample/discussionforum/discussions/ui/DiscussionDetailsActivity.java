@@ -83,7 +83,7 @@ public class DiscussionDetailsActivity extends AppCompatActivity {
         });
 
         //dummy comments
-        mCommentsViewModel.createComment(discussionId, null, "This is dummy comment");
+//        mCommentsViewModel.createComment(discussionId, null, "This is dummy comment");
         RecyclerView commentsRv = findViewById(R.id.rv_comments);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         commentsRv.setLayoutManager(manager);

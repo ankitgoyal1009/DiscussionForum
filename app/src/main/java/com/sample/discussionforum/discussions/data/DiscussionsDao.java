@@ -19,7 +19,7 @@ public interface DiscussionsDao {
     @Query("SELECT * from Discussion ")
     LiveData<List<Discussion>> getAllDiscussion();
 
-    @Query("SELECT * from Discussion where date<=:date")
+    @Query("SELECT * from Discussion where date<=:date ORDER BY date DESC")
     LiveData<List<Discussion>> getAllPublishedDiscussion(Long date);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
