@@ -17,5 +17,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/padding_8dp"
         android:onClick="postComment"
+        style="@style/Button"
         android:text="@string/submit"/>
 </LinearLayout>

@@ -12,17 +12,17 @@ import com.sample.discussionforum.comments.CommentsViewModel;
 import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.common.DateUtils;
 import com.sample.discussionforum.likes.LikesViewModel;
-import com.sample.discussionforum.likes.data.Likes;
+import com.sample.discussionforum.likes.data.Like;
 import com.sample.discussionforum.login.LoginViewModel;
 import com.sample.discussionforum.login.data.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,15 +32,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
     private List<Comment> mCommentList;
     private CommentsViewModel mCommentsViewModel;
     private LikesViewModel mLikesViewModel;
-    private LoginViewModel mLoginViewModel;
     private boolean allowActions = true;
+    private Map<String, Like> mLikes;
 
     public CommentsAdapter(AppCompatActivity activity) {
         mActivity = activity;
         mCommentsViewModel = ViewModelProviders.of(activity).get(CommentsViewModel.class);
         mLikesViewModel = ViewModelProviders.of(activity).get(LikesViewModel.class);
-        mLoginViewModel = ViewModelProviders.of(activity).get(LoginViewModel.class);
-        mUser = mLoginViewModel.getLoggedInUser();
+        LoginViewModel loginViewModel = ViewModelProviders.of(activity).get(LoginViewModel.class);
+        mUser = loginViewModel.getLoggedInUser();
     }
 
     public void setAllowActions(boolean allowActions) {
@@ -49,6 +49,15 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
 
     public void setOrUpdateCommentList(List<Comment> commentList) {
         mCommentList = commentList;
+    }
+
+    public void setOrUpdateLikesList(List<Like> likesList) {
+        mLikes = new HashMap<>();
+        if (likesList != null) {
+            for (Like like : likesList) {
+                mLikes.put(like.getCommentId(), like);
+            }
+        }
     }
 
     @NonNull
@@ -95,27 +104,21 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
                     mCommentsViewModel.upvoteComment(comment);
                 }
             });
-            final Likes[] isUserlikes = new Likes[1];
-            final LiveData<Likes> likesCountForCommentByUser = mLikesViewModel.getLikesCountForCommentByUser(comment.getId(), mUser.getEmail());
-            likesCountForCommentByUser
-                    .observe(mActivity, new Observer<Likes>() {
-                        @Override
-                        public void onChanged(Likes likes) {
-                            isUserlikes[0] = likes;
-                            if (likes != null) {
-                                viewHolder.ivLike.setImageResource(R.drawable.ic_like_selected_state);
-                            } else {
-                                viewHolder.ivLike.setImageResource(R.drawable.ic_like_normal_state);
-                            }
-                        }
-                    });
+
+            final Like ifAlreadyLiked = mLikes.get(comment.getId());
+            if (ifAlreadyLiked != null) {
+                viewHolder.ivLike.setImageResource(R.drawable.ic_like_selected_state);
+            } else {
+                viewHolder.ivLike.setImageResource(R.drawable.ic_like_normal_state);
+            }
+
             viewHolder.ivLike.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (isUserlikes[0] == null) {
+                    if (ifAlreadyLiked == null) {
                         mLikesViewModel.likeComment(comment.getId(), mUser.getEmail());
                     } else {
-                        mLikesViewModel.disLikeComment(isUserlikes[0].getId());
+                        mLikesViewModel.disLikeComment(ifAlreadyLiked.getId());
                     }
                 }
             });

@@ -5,7 +5,7 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Likes {
+public class Like {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private long id;

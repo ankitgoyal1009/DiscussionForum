@@ -20,6 +20,10 @@ import com.sample.discussionforum.common.DateUtils;
 import com.sample.discussionforum.common.ui.BaseActivity;
 import com.sample.discussionforum.discussions.DiscussionsViewModel;
 import com.sample.discussionforum.discussions.data.Discussion;
+import com.sample.discussionforum.likes.LikesViewModel;
+import com.sample.discussionforum.likes.data.Like;
+import com.sample.discussionforum.login.LoginViewModel;
+import com.sample.discussionforum.login.data.User;
 
 import java.util.List;
 
@@ -85,8 +89,22 @@ public class DiscussionDetailsActivity extends BaseActivity {
 
         mCommentsCountTV = findViewById(R.id.tv_comments_count);
         mCommentsContainerRl = findViewById(R.id.rl_comments_container);
+        LikesViewModel likesViewModel = ViewModelProviders.of(this).get(LikesViewModel.class);
+        LoginViewModel loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
+        User user = loginViewModel.getLoggedInUser();
 
         final CommentsAdapter adapter = new CommentsAdapter(this);
+
+        likesViewModel.getAllLikesByUser(user.getEmail()).observe(this, new Observer<List<Like>>() {
+            @Override
+            public void onChanged(List<Like> likes) {
+                if(likes!= null) {
+                    adapter.setOrUpdateLikesList(likes);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
         mCommentsViewModel = ViewModelProviders.of(this).get(CommentsViewModel.class);
         mCommentsViewModel.getAllComment(mDiscussionId).observe(this, new Observer<List<Comment>>() {
             @Override

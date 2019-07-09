@@ -4,8 +4,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.sample.discussionforum.common.data.LocalDB;
-import com.sample.discussionforum.likes.data.Likes;
+import com.sample.discussionforum.likes.data.Like;
 import com.sample.discussionforum.likes.data.LikesDao;
+
+import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
@@ -28,11 +30,15 @@ class LikesRepository {
         return likesDao.getLikeCountForComment(commentId);
     }
 
-    LiveData<Likes> isCommentLikedByUser(String commentId, String userId) {
+    LiveData<Like> isCommentLikedByUser(String commentId, String userId) {
         return likesDao.isCommentLikedByUser(commentId, userId);
     }
 
-    void likeComment(final Likes likes) {
+    LiveData<List<Like>> getAllLikesByUser(String userId) {
+        return likesDao.getAllLikesByUser(userId);
+    }
+
+    void likeComment(final Like likes) {
         new AsyncTask<Object, Object, Object>() {
             @Override
             protected Object doInBackground(Object[] objects) {

@@ -2,7 +2,9 @@ package com.sample.discussionforum.likes;
 
 import android.app.Application;
 
-import com.sample.discussionforum.likes.data.Likes;
+import com.sample.discussionforum.likes.data.Like;
+
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,12 +24,16 @@ public class LikesViewModel extends AndroidViewModel {
         return mRepository.getLikesCountForComment(commentId);
     }
 
-    public LiveData<Likes> getLikesCountForCommentByUser(String commentId, String userId){
+    public LiveData<Like> getLikesCountForCommentByUser(String commentId, String userId){
         return mRepository.isCommentLikedByUser(commentId, userId);
     }
 
+    public LiveData<List<Like>> getAllLikesByUser(String userId){
+        return mRepository.getAllLikesByUser(userId);
+    }
+
     public void likeComment(String commentId, String userId){
-        Likes likes = new Likes();
+        Like likes = new Like();
         likes.setCommentId(commentId);
         likes.setUserId(userId);
         mRepository.likeComment(likes);
