@@ -58,14 +58,18 @@ public class DiscussionAdapter extends BaseAdapter {
 
         Date publishedDate = getItem(i).getDate();
 
+        String date;
         if (DateUtils.isItToday(publishedDate.getTime())) {
+            // show today's discussion in different color
             view.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.pale_yellow));
+            date = mActivity.getString(R.string.today);
         } else {
             view.setBackgroundColor(ContextCompat.getColor(mActivity, android.R.color.white));
+            date = DateUtils.dateToString(publishedDate);
         }
 
         holder.tvDiscussion.setText(getItem(i).getTitle());
-        holder.tvDiscussionDate.setText(DateUtils.dateToString(publishedDate));
+        holder.tvDiscussionDate.setText(date);
         return view;
     }
 

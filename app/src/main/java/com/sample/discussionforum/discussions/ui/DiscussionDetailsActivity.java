@@ -101,8 +101,6 @@ public class DiscussionDetailsActivity extends BaseActivity {
             }
         });
 
-        //dummy comments
-//        mCommentsViewModel.createComment(mDiscussionId, null, "This is dummy comment");
         RecyclerView mCommentsRv = findViewById(R.id.rv_comments);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(this);
         mCommentsRv.setLayoutManager(manager);

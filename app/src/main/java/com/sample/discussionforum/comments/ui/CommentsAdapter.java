@@ -6,22 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.sample.discussionforum.R;
 import com.sample.discussionforum.comments.CommentsViewModel;
 import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.common.DateUtils;
-import com.sample.discussionforum.common.Status;
-import com.sample.discussionforum.common.data.StatusAwareResponse;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,18 +29,6 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
     public CommentsAdapter(AppCompatActivity activity) {
         mActivity = activity;
         mCommentsViewModel = ViewModelProviders.of(activity).get(CommentsViewModel.class);
-        mCommentsViewModel.getLiveData().observe(activity, new Observer<StatusAwareResponse<Comment>>() {
-            @Override
-            public void onChanged(@Nullable StatusAwareResponse<Comment> response) {
-                if (response == null) {
-                    return;
-                }
-
-                if (Status.failed == response.getStatus()) {
-                    Toast.makeText(mActivity, response.getError().getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
     }
 
     public void setAllowActions(boolean allowActions) {

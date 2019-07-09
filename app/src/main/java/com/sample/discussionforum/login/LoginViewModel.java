@@ -22,7 +22,7 @@ public class LoginViewModel extends AndroidViewModel {
     /**
      * This is new user registration method.
      */
-    LiveData<User> registerUser(final String displayName, final String email, final String pwd) {
+    public LiveData<User> registerUser(final String displayName, final String email, final String pwd) {
         User user = new User(displayName, email, pwd);
         return mRepository.registerUser(mApplication, user);
     }
