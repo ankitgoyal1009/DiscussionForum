@@ -33,6 +33,10 @@ public class CommentsViewModel extends AndroidViewModel {
         return mRepository.getAllComments(discussionId);
     }
 
+    public LiveData<List<Comment>> getAllRepliesOnComment(String commentId) {
+        return mRepository.getAllRepliesOnComment(commentId);
+    }
+
     public LiveData<Comment> getComment(String commentId) {
         return mRepository.getComment(commentId);
     }

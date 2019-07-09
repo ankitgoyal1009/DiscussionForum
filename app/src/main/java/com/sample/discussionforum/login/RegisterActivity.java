@@ -70,7 +70,8 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         if (valid) {
-            mViewModel.getUser(email).observe(this, new Observer<User>() {
+            final LiveData<User> userLiveData = mViewModel.getUser(email);
+            userLiveData.observe(this, new Observer<User>() {
                 @Override
                 public void onChanged(User user) {
                     if (user != null) {
@@ -78,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
                     registerUser(displayName, email, pwd);
+                    userLiveData.removeObservers(RegisterActivity.this);
                 }
             });
         }

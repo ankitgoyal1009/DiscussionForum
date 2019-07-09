@@ -26,6 +26,7 @@
         <activity android:name=".discussions.ui.DiscussionsListActivity"/>
         <activity android:name=".discussions.ui.DiscussionDetailsActivity"/>
         <activity android:name=".comments.ui.AddCommentOrReply"/>
+        <activity android:name=".comments.ui.RepliesListActivity"/>
     </application>
 
 </manifest>

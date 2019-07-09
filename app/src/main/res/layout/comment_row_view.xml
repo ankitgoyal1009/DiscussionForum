@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    app:elevation="@dimen/padding_16dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    card_view:cardCornerRadius="10dp"
-    android:layout_height="wrap_content">
+    app:elevation="@dimen/padding_16dp"
+    card_view:cardCornerRadius="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,6 +62,8 @@
             tools:text="Comment"/>
 
         <LinearLayout
+            android:layout_marginTop="@dimen/padding_8dp"
+            android:id="@+id/ll_count_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_comment"
@@ -81,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_8dp"
                 android:textSize="@dimen/font_size_10sp"
-                tools:text="Like Count"/>
+                tools:text="Replies Count"/>
         </LinearLayout>
 
         <include
@@ -89,11 +91,12 @@
             layout="@layout/horizontal_divider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_below="@id/tv_comment"
+            android:layout_below="@id/ll_count_container"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginTop="@dimen/activity_horizontal_margin"/>
 
         <LinearLayout
+            android:id="@+id/ll_actions_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/action_divider"

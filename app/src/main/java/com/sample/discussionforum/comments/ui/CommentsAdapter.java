@@ -1,9 +1,11 @@
 package com.sample.discussionforum.comments.ui;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.sample.discussionforum.R;
@@ -18,6 +20,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +29,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
     private AppCompatActivity mActivity;
     private List<Comment> mCommentList;
     private CommentsViewModel mCommentsViewModel;
+    private boolean allowActions = true;
 
     public CommentsAdapter(AppCompatActivity activity) {
         mActivity = activity;
@@ -42,6 +46,10 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
                 }
             }
         });
+    }
+
+    public void setAllowActions(boolean allowActions) {
+        this.allowActions = allowActions;
     }
 
     public void setOrUpdateCommentList(List<Comment> commentList) {
@@ -61,38 +69,55 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
         viewHolder.tvUserName.setText(comment.getUser().getDisplayName());
         viewHolder.tvCommentTime.setText(DateUtils.timeToString(comment.getCommentDate()));
         viewHolder.tvComment.setText(comment.getContent());
-        viewHolder.ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, comment.getContent());
-                mActivity.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+        if (allowActions) {
+            viewHolder.actionDivider.setVisibility(View.VISIBLE);
+            viewHolder.llActionContainer.setVisibility(View.VISIBLE);
+
+            viewHolder.ivShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                    sharingIntent.setType("text/plain");
+                    sharingIntent.putExtra(Intent.EXTRA_TEXT, comment.getContent());
+                    mActivity.startActivity(Intent.createChooser(sharingIntent, mActivity.getString(R.string.share_via)));
+                }
+            });
+            TextView tvCommentsCount = viewHolder.tvCommentsCount;
+            tvCommentsCount.setTextColor(ContextCompat.getColor(mActivity, R.color.colorPrimaryDark));
+            tvCommentsCount.setPaintFlags(tvCommentsCount.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+            tvCommentsCount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RepliesListActivity.startActivity(mActivity, comment.getId());
+                }
+            });
+
+            viewHolder.ivUpvote.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int upvoteCount = comment.getUpvoteCount() + 1;
+                    comment.setUpvoteCount(upvoteCount);
+                    mCommentsViewModel.upvoteComment(comment);
+                }
+            });
+
+            viewHolder.ivReply.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AddCommentOrReply.startActivity(mActivity, comment.getDiscussionId(), comment.getId());
+                }
+            });
+
+            if (comment.getUpvoteCount() > 0) {
+                viewHolder.tvUpvoteCount.setText(mActivity.getString(R.string.upvote, String.valueOf(comment.getUpvoteCount())));
             }
-        });
 
-        viewHolder.ivUpvote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int upvoteCount = comment.getUpvoteCount() + 1;
-                comment.setUpvoteCount(upvoteCount);
-                mCommentsViewModel.upvoteComment(comment);
+            if (comment.getReplyCount() > 0) {
+                tvCommentsCount.setText(mActivity.getString(R.string.replied, String.valueOf(comment.getReplyCount())));
             }
-        });
-
-        viewHolder.ivReply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddCommentOrReply.startActivity(mActivity, comment.getDiscussionId(), comment.getId());
-            }
-        });
-
-        if (comment.getUpvoteCount() > 0) {
-            viewHolder.tvUpvoteCount.setText(mActivity.getString(R.string.upvote, String.valueOf(comment.getUpvoteCount())));
-        }
-
-        if (comment.getReplyCount() > 0) {
-            viewHolder.tvCommentsCount.setText(mActivity.getString(R.string.replied, String.valueOf(comment.getReplyCount())));
+        } else {
+            viewHolder.actionDivider.setVisibility(View.GONE);
+            viewHolder.llActionContainer.setVisibility(View.GONE);
         }
     }
 
