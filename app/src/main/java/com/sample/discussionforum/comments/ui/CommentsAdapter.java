@@ -11,24 +11,36 @@ import com.sample.discussionforum.R;
 import com.sample.discussionforum.comments.CommentsViewModel;
 import com.sample.discussionforum.comments.data.Comment;
 import com.sample.discussionforum.common.DateUtils;
+import com.sample.discussionforum.likes.LikesViewModel;
+import com.sample.discussionforum.likes.data.Likes;
+import com.sample.discussionforum.login.LoginViewModel;
+import com.sample.discussionforum.login.data.User;
 
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
+    private final User mUser;
     private AppCompatActivity mActivity;
     private List<Comment> mCommentList;
     private CommentsViewModel mCommentsViewModel;
+    private LikesViewModel mLikesViewModel;
+    private LoginViewModel mLoginViewModel;
     private boolean allowActions = true;
 
     public CommentsAdapter(AppCompatActivity activity) {
         mActivity = activity;
         mCommentsViewModel = ViewModelProviders.of(activity).get(CommentsViewModel.class);
+        mLikesViewModel = ViewModelProviders.of(activity).get(LikesViewModel.class);
+        mLoginViewModel = ViewModelProviders.of(activity).get(LoginViewModel.class);
+        mUser = mLoginViewModel.getLoggedInUser();
     }
 
     public void setAllowActions(boolean allowActions) {
@@ -47,7 +59,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CommentsViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final CommentsViewHolder viewHolder, int i) {
         final Comment comment = getItem(i);
         viewHolder.tvUserName.setText(comment.getUser().getDisplayName());
         viewHolder.tvCommentTime.setText(DateUtils.timeToString(comment.getCommentDate()));
@@ -81,6 +93,30 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsViewHolder> {
                     int upvoteCount = comment.getUpvoteCount() + 1;
                     comment.setUpvoteCount(upvoteCount);
                     mCommentsViewModel.upvoteComment(comment);
+                }
+            });
+            final Likes[] isUserlikes = new Likes[1];
+            final LiveData<Likes> likesCountForCommentByUser = mLikesViewModel.getLikesCountForCommentByUser(comment.getId(), mUser.getEmail());
+            likesCountForCommentByUser
+                    .observe(mActivity, new Observer<Likes>() {
+                        @Override
+                        public void onChanged(Likes likes) {
+                            isUserlikes[0] = likes;
+                            if (likes != null) {
+                                viewHolder.ivLike.setImageResource(R.drawable.ic_like_selected_state);
+                            } else {
+                                viewHolder.ivLike.setImageResource(R.drawable.ic_like_normal_state);
+                            }
+                        }
+                    });
+            viewHolder.ivLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isUserlikes[0] == null) {
+                        mLikesViewModel.likeComment(comment.getId(), mUser.getEmail());
+                    } else {
+                        mLikesViewModel.disLikeComment(isUserlikes[0].getId());
+                    }
                 }
             });
 

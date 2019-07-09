@@ -3,6 +3,7 @@ package com.sample.discussionforum.login;
 import android.app.Application;
 import android.text.TextUtils;
 
+import com.sample.discussionforum.common.Gson;
 import com.sample.discussionforum.login.data.User;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,10 @@ public class LoginViewModel extends AndroidViewModel {
 
     public boolean isUserLoggedIn() {
         return !TextUtils.isEmpty(mRepository.getSession(mApplication));
+    }
+
+    public User getLoggedInUser() {
+        return Gson.getInstance().fromJson(mRepository.getLoggedInUser(mApplication), User.class);
     }
 
     public LiveData<User> getUser(String email) {

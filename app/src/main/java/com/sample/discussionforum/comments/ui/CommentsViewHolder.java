@@ -19,6 +19,7 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
     public ImageView ivReply;
     public ImageView ivUpvote;
     public ImageView ivShare;
+    public ImageView ivLike;
     public ImageView ivUserPhoto;
     public LinearLayout llActionContainer;
     public View actionDivider;
@@ -33,6 +34,7 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
         ivReply = itemView.findViewById(R.id.iv_reply);
         ivUpvote = itemView.findViewById(R.id.iv_upvote);
         ivShare = itemView.findViewById(R.id.iv_share);
+        ivLike = itemView.findViewById(R.id.iv_like);
         llActionContainer = itemView.findViewById(R.id.ll_actions_container);
         actionDivider = itemView.findViewById(R.id.action_divider);
     }

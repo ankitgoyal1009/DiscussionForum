@@ -78,6 +78,11 @@ public class LoginRepository {
         return preferences.getString(PREF_SESSION, null);
     }
 
+    String getLoggedInUser(Context context) {
+        SharedPreferences preferences = SharedPrefUtil.getSharedPref(context);
+        return preferences.getString(PREF_CURRENT_LOGGEDIN_USER, null);
+    }
+
     /**
      * This method will remove current session.
      */
