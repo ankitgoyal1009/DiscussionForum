@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import com.sample.discussionforum.common.Gson;
 import com.sample.discussionforum.common.data.LocalDB;
+import com.sample.discussionforum.data.SharedPrefUtil;
 import com.sample.discussionforum.login.data.User;
 import com.sample.discussionforum.login.data.UserDao;
 
@@ -15,10 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 
 import static com.sample.discussionforum.data.SharedPrefUtil.PREF_CURRENT_LOGGEDIN_USER;
+import static com.sample.discussionforum.data.SharedPrefUtil.PREF_SESSION;
 
 public class LoginRepository {
-    private static final String DB_NAME = "discussions_pref";
-    private static final String PREF_SESSION = "session";
     private static LoginRepository sInstance;
 
     private LoginRepository() {
@@ -62,7 +62,7 @@ public class LoginRepository {
      * This method generates a session
      */
     public void createSession(Context context, User user) {
-        SharedPreferences preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = SharedPrefUtil.getSharedPref(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString(PREF_SESSION, UUID.randomUUID().toString());
         editor.putString(PREF_CURRENT_LOGGEDIN_USER, Gson.getInstance().toJson(user));
@@ -74,7 +74,7 @@ public class LoginRepository {
      */
     @Nullable
     String getSession(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = SharedPrefUtil.getSharedPref(context);
         return preferences.getString(PREF_SESSION, null);
     }
 
@@ -82,7 +82,7 @@ public class LoginRepository {
      * This method will remove current session.
      */
     public void logout(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences(DB_NAME, Context.MODE_PRIVATE);
+        SharedPreferences preferences = SharedPrefUtil.getSharedPref(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.remove(PREF_SESSION);
         editor.remove(PREF_CURRENT_LOGGEDIN_USER);
