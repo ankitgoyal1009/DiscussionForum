@@ -19,5 +19,15 @@
     - Like
     - Reply
     - Share
-9. <img src="https://github.com/ankitgoyal1009/DiscussionForum/blob/master/Screenshot_1562690833.png" />
+9. You can create multiple user accounts on the same device and see comments from other users. 
+
+### Discussion Details
+<img src="https://github.com/ankitgoyal1009/DiscussionForum/blob/master/Screenshot_1562690833.png" />
+
+### Comments from other user
+<img src="https://github.com/ankitgoyal1009/DiscussionForum/blob/master/Screenshot_1562691405.png"/>
+
+### See all replies for any comments
+
+<img src="https://github.com/ankitgoyal1009/DiscussionForum/blob/master/Screenshot_1562691409.png"/>
 
