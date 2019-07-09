@@ -23,7 +23,7 @@ public interface CommentsDao {
     @Query("SELECT COUNT(id) from Comment where parentCommentId=:parentId")
     LiveData<Integer> getAllRepliesCount(String parentId);
 
-    @Query("SELECT * from Comment where discussionId=:discussionId")
+    @Query("SELECT * from Comment where discussionId=:discussionId and parentCommentId is null")
     LiveData<List<Comment>> getAllCommentsForDiscussion(String discussionId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

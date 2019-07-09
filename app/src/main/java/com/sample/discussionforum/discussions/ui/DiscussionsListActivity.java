@@ -8,17 +8,17 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.sample.discussionforum.R;
+import com.sample.discussionforum.common.ui.BaseActivity;
 import com.sample.discussionforum.discussions.DiscussionsViewModel;
 import com.sample.discussionforum.discussions.data.Discussion;
 
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class DiscussionsListActivity extends AppCompatActivity {
+public class DiscussionsListActivity extends BaseActivity {
 
     private DiscussionAdapter adapter;
     private DiscussionsViewModel viewModel;

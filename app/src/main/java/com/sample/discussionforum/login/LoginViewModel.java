@@ -38,4 +38,8 @@ public class LoginViewModel extends AndroidViewModel {
     public LiveData<User> getUser(String email) {
         return mRepository.getUser(mApplication, email);
     }
+
+    public void logout() {
+        mRepository.logout(mApplication);
+    }
 }
