@@ -10,20 +10,26 @@ public class DateUtils {
     private static final DateFormat FORMAT_DD_MM_YYYY = new SimpleDateFormat("dd MMM yyyy");
     private static final DateFormat FORMAT_HHMM = new SimpleDateFormat("HH:mm");
 
-    public static DateFormat getFormatDdMmYyyy() {
+    private static DateFormat getFormatDdMmYyyy() {
         FORMAT_DD_MM_YYYY.setTimeZone(TimeZone.getDefault());
         return FORMAT_DD_MM_YYYY;
     }
 
-    public static DateFormat getFormathhmm() {
+    private static DateFormat getFormathhmm() {
         FORMAT_HHMM.setTimeZone(TimeZone.getDefault());
         return FORMAT_HHMM;
     }
 
+    /**
+     * This will format given date into dd MMM yyyy format
+     */
     public static String dateToString(Date date) {
         return DateUtils.getFormatDdMmYyyy().format(date);
     }
 
+    /**
+     * This will format given milies into HH:mm format
+     */
     public static String timeToString(long milies) {
         return DateUtils.getFormathhmm().format(new Date(milies));
     }

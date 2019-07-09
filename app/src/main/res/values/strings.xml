@@ -27,10 +27,12 @@
     <string name="comments">Comments (%s)</string>
     <string name="like">Like (%s)</string>
     <string name="upvote">Upvote (%s)</string>
-    <string name="replied">Replied (%s)</string>
+    <string name="replied">Replies (%s)</string>
     <string name="submit">Submit</string>
     <string name="msg_hint_add_comment">Write your thoughts here</string>
     <string name="msg_no_comments">No comments yet</string>
     <string name="add_comment">Add Comment</string>
     <string name="logout">Logout</string>
+    <string name="share_via">Share via</string>
+    <string name="today">Today</string>
 </resources>

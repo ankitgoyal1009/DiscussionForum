@@ -1,4 +1,4 @@
-package com.sample.discussionforum.login;
+package com.sample.discussionforum.login.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.sample.discussionforum.R;
 import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
+import com.sample.discussionforum.login.LoginViewModel;
 import com.sample.discussionforum.login.data.User;
 
 import androidx.annotation.Nullable;

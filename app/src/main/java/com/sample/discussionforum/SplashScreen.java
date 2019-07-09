@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
-import com.sample.discussionforum.login.LoginActivity;
+import com.sample.discussionforum.login.ui.LoginActivity;
 import com.sample.discussionforum.login.LoginViewModel;
 
 import androidx.annotation.Nullable;

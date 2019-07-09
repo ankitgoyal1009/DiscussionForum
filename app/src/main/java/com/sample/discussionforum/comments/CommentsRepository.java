@@ -17,14 +17,14 @@ import java.util.UUID;
 
 import androidx.lifecycle.LiveData;
 
-public class CommentsRepository {
+class CommentsRepository {
     private static CommentsRepository sInstance;
     private static CommentsDao commentsDao;
 
     private CommentsRepository() {
     }
 
-    public static CommentsRepository getInstance(Context context) {
+    static CommentsRepository getInstance(Context context) {
         if (sInstance == null) {
             sInstance = new CommentsRepository();
         }
@@ -32,11 +32,11 @@ public class CommentsRepository {
         return sInstance;
     }
 
-    public LiveData<Comment> getComment(String commentId) {
+    LiveData<Comment> getComment(String commentId) {
         return commentsDao.getComment(commentId);
     }
 
-    public void createComment(final Context context, final String discussionId, final String parentCommentId, final String content) {
+    void createComment(final Context context, final String discussionId, final String parentCommentId, final String content) {
         new AsyncTask<Object, Object, Object>() {
             @Override
             protected Object doInBackground(Object[] objects) {
@@ -62,31 +62,15 @@ public class CommentsRepository {
         }.execute();
     }
 
-    public LiveData<List<Comment>> getAllComments(String discussionId) {
+    LiveData<List<Comment>> getAllComments(String discussionId) {
         return commentsDao.getAllCommentsForDiscussion(discussionId);
     }
 
-    public LiveData<List<Comment>> getAllRepliesOnComment(String commentId) {
+    LiveData<List<Comment>> getAllRepliesOnComment(String commentId) {
         return commentsDao.getAllRepliesOnComment(commentId);
     }
 
-    public LiveData<Integer> getAllRepliesCount(String commentId) {
-        return commentsDao.getAllRepliesCount(commentId);
-    }
-
-    public void saveComment(final Comment comment) {
-        if (comment != null) {
-            new AsyncTask<Object, Object, Object>() {
-                @Override
-                protected Object doInBackground(Object[] objects) {
-                    commentsDao.insert(comment);
-                    return null;
-                }
-            }.execute();
-        }
-    }
-
-    public void updateComment(final Comment comment) {
+    void updateComment(final Comment comment) {
         if (comment != null) {
             new AsyncTask<Object, Object, Object>() {
                 @Override

@@ -2,6 +2,7 @@ package com.sample.discussionforum.comments.ui;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.sample.discussionforum.R;
@@ -19,6 +20,8 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
     public ImageView ivUpvote;
     public ImageView ivShare;
     public ImageView ivUserPhoto;
+    public LinearLayout llActionContainer;
+    public View actionDivider;
 
     public CommentsViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -30,5 +33,7 @@ public class CommentsViewHolder extends RecyclerView.ViewHolder {
         ivReply = itemView.findViewById(R.id.iv_reply);
         ivUpvote = itemView.findViewById(R.id.iv_upvote);
         ivShare = itemView.findViewById(R.id.iv_share);
+        llActionContainer = itemView.findViewById(R.id.ll_actions_container);
+        actionDivider = itemView.findViewById(R.id.action_divider);
     }
 }

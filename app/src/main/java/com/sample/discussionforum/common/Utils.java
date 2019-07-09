@@ -8,10 +8,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import androidx.annotation.Nullable;
+
 public class Utils {
 
-    public static final String TAG = "Utils";
+    private static final String TAG = "Utils";
 
+    /**
+     * This method will read a given file from Raw folder.
+     */
+    @Nullable
     public static String readRawFile(Context context, int resourceId) {
         InputStream inputStream = context.getResources().openRawResource(resourceId);
 

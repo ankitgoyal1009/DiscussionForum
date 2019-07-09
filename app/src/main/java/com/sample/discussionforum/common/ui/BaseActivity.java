@@ -5,12 +5,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.sample.discussionforum.R;
-import com.sample.discussionforum.login.LoginActivity;
 import com.sample.discussionforum.login.LoginViewModel;
+import com.sample.discussionforum.login.ui.LoginActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+/**
+ * This is the base activity which has logout functionality and all activities which needs this can extend from base activity.
+ */
 public class BaseActivity extends AppCompatActivity {
 
     @Override
