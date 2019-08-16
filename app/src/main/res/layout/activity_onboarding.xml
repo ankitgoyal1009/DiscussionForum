@@ -9,7 +9,20 @@
         android:id="@+id/cardview"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_centerInParent="true"/>
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:fontFamily="cursive"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_48sp"
+            android:textStyle="bold"
+            />
+    </com.sample.discussionforum.onboarding.ui.OnBoardingCardView>
 
     <Button
         android:id="@+id/btn_next"
@@ -18,16 +31,18 @@
         android:layout_below="@id/cardview"
         android:layout_centerHorizontal="true"
         android:onClick="startOnboarding"
-        android:text="@string/let_start"
+        android:text="@string/know_more"
         android:textAllCaps="false"/>
 
     <ImageView
-        android:id="@+id/iv_man"
+        android:id="@+id/iv_comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@id/cardview"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_man"
+        android:minHeight="@dimen/padding_40dp"
+        android:minWidth="@dimen/padding_40dp"
+        android:src="@drawable/ic_comment_black_24dp"
         android:visibility="gone"/>
 
     <ImageView
@@ -36,6 +51,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/cardview"
         android:layout_toEndOf="@id/cardview"
+        android:minHeight="@dimen/padding_40dp"
+        android:minWidth="@dimen/padding_40dp"
         android:src="@drawable/ic_thumb_up_black_24dp"
         android:visibility="gone"/>
 
@@ -45,10 +62,12 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/cardview"
         android:layout_toStartOf="@id/cardview"
+        android:minHeight="@dimen/padding_40dp"
+        android:minWidth="@dimen/padding_40dp"
         android:src="@drawable/ic_like_selected_state"
         android:visibility="gone"/>
 
-    <TextView
+    <TextSwitcher
         android:id="@+id/txt_feature_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

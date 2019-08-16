@@ -37,4 +37,6 @@
     <string name="today">Today</string>
     <string name="onboarding_msg_main">Every day A new topic will be published</string>
     <string name="let_start">Let\'s Start</string>
+    <string name="next">Next</string>
+    <string name="know_more">Know More</string>
 </resources>
