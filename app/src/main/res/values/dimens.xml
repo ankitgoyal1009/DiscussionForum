@@ -11,4 +11,5 @@
     <dimen name="font_size_12sp">12sp</dimen>
     <dimen name="font_size_10sp">10sp</dimen>
     <dimen name="text_size_10sp">10sp</dimen>
+    <dimen name="padding_40dp">40dp</dimen>
 </resources>
