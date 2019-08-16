@@ -35,4 +35,6 @@
     <string name="logout">Logout</string>
     <string name="share_via">Share via</string>
     <string name="today">Today</string>
+    <string name="onboarding_msg_main">Every day A new topic will be published</string>
+    <string name="let_start">Let\'s Start</string>
 </resources>

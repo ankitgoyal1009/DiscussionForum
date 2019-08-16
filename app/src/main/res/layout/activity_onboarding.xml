@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout android:id="@+id/onboarding_container"
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -11,12 +12,14 @@
         android:layout_centerInParent="true"/>
 
     <Button
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardview"
         android:layout_centerHorizontal="true"
-        android:onClick="animateMe"
-        android:text="Animate Me"/>
+        android:onClick="startOnboarding"
+        android:text="@string/let_start"
+        android:textAllCaps="false"/>
 
     <ImageView
         android:id="@+id/iv_man"
@@ -28,20 +31,30 @@
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/iv_man2"
+        android:id="@+id/iv_thumbsup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/cardview"
         android:layout_toEndOf="@id/cardview"
-        android:src="@drawable/ic_man"
+        android:src="@drawable/ic_thumb_up_black_24dp"
         android:visibility="gone"/>
 
     <ImageView
-        android:id="@+id/iv_man3"
+        android:id="@+id/iv_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/cardview"
         android:layout_toStartOf="@id/cardview"
-        android:src="@drawable/ic_man"
+        android:src="@drawable/ic_like_selected_state"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/txt_feature_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/btn_next"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/padding_8dp"
+        android:text="@string/onboarding_msg_main"/>
 </RelativeLayout>
