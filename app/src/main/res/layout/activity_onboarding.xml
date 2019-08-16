@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <com.sample.discussionforum.onboarding.ui.OnBoardingCardView
+        android:id="@+id/cardview"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cardview"
+        android:layout_centerHorizontal="true"
+        android:onClick="animateMe"
+        android:text="Animate Me"/>
+
+    <ImageView
+        android:id="@+id/iv_man"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/cardview"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_man"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/iv_man2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/cardview"
+        android:layout_toEndOf="@id/cardview"
+        android:src="@drawable/ic_man"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/iv_man3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/cardview"
+        android:layout_toStartOf="@id/cardview"
+        android:src="@drawable/ic_man"
+        android:visibility="gone"/>
+</RelativeLayout>

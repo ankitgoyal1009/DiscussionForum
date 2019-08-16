@@ -6,6 +6,7 @@ import android.os.Handler;
 import com.sample.discussionforum.discussions.ui.DiscussionsListActivity;
 import com.sample.discussionforum.login.ui.LoginActivity;
 import com.sample.discussionforum.login.LoginViewModel;
+import com.sample.discussionforum.onboarding.ui.OnBoardingActivity;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,7 @@ public class SplashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 if (!model.isUserLoggedIn()) {
-                    LoginActivity.startActivity(SplashScreen.this);
+                    OnBoardingActivity.start(SplashScreen.this);
                 } else {
                     DiscussionsListActivity.startActivity(SplashScreen.this);
                 }
