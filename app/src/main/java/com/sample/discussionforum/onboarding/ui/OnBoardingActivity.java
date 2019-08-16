@@ -118,11 +118,12 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         switch (mCurrentState) {
             case START: {
+                mCardView.getWidth();
                 OnBoardingCardView.Params circle = OnBoardingCardView.Params.create()
                         .duration(300)
                         .cornerRadius(550)
-                        .width(750)
-                        .height(750).animationListener(new CardMorphingAnimation.Listener() {
+                        .width(mCardView.getWidth())
+                        .height(mCardView.getHeight()).animationListener(new CardMorphingAnimation.Listener() {
                             @Override
                             public void onAnimationEnd() {
                                 ivComment.setVisibility(View.VISIBLE);
